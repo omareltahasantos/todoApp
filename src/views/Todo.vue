@@ -4,7 +4,7 @@
             v-model="newTaskTitle"
             class="pa-3"
             outlined
-            label="Append"
+            label="Add Task"
             append-icon="mdi-plus"
             hide-details
             clearable
