@@ -55,7 +55,7 @@
 
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-app-bar-title>Vuetify Todo</v-app-bar-title>
+      <v-app-bar-title class="text-h5">Vuetify Todo</v-app-bar-title>
 
       <v-spacer></v-spacer>
       
