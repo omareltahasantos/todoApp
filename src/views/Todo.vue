@@ -13,42 +13,35 @@
            
 
     ></v-text-field>
-      <v-row no-gutters class="text-center">
-        <v-col
-           
-           
-            cols="3"
-            sm="4"
-            md="4"
-          >
-            <v-btn v-if="tasks !== [] " outlined class="ml-2" @click="orderTask()">
-              <p class="upButton pt-4 mr-1">Sort </p>
-              <v-icon v-if="sortIcon === true" color="blue lighten-1">mdi-sort-bool-ascending-variant</v-icon>
-              <v-icon v-if="sortIcon === false" color="blue lighten-1">mdi-sort-bool-descending-variant</v-icon>
-            </v-btn>
-       </v-col>
-          <v-col
-           
-           
-            cols="5"
-            sm="4"
-            md="4"
-          >
-          <v-btn v-if="tasks !== [] " outlined class="ml-3" @click="deleteAllTask()">
-              <p class="upButton pt-4 mr-1">Delete All</p>
-              
-            </v-btn>
-       </v-col>
-          <v-col
-            cols="4"
-            sm="4"
-            md="4"
-          >
-            <v-btn v-if="tasks !== [] " outlined class="ml-1"  @click="deleteDoneTask()">
-              <p class="upButton pt-4 mr-1">Delete done</p>
-            </v-btn>
-       </v-col>
-      </v-row>
+    <v-container>
+		<v-row
+			justify='center'
+			justify-md="space-around"
+		>
+
+				<v-btn v-if="tasks !== [] " outlined class="mr-1 ml-1" @click="orderTask()">
+					<p class="upButton pt-4 mr-1">Sort </p>
+					<v-icon v-if="sortIcon === true" color="blue lighten-1">mdi-sort-bool-ascending-variant</v-icon>
+					<v-icon v-if="sortIcon === false" color="blue lighten-1">mdi-sort-bool-descending-variant</v-icon>
+				</v-btn>
+	
+			
+			
+				<v-btn v-if="tasks != [] " outlined class="mr-1 ml-1" @click="deleteAllTask()">
+					<p class="upButton pt-4 mr-1">Delete All</p>               
+				</v-btn>
+		
+			
+				<v-btn v-if="tasks !== [] " outlined class="ml-1"  @click="deleteDoneTask()">
+					<p class="upButton pt-4 mr-1">Delete done</p>
+				</v-btn>
+			
+
+
+		
+		</v-row>
+    </v-container>
+    
      <v-list class="pt-0"
       flat
     >
@@ -259,6 +252,13 @@
 
     data(){
       return{
+         justify: [
+        'start',
+        'center',
+        'end',
+        'space-around',
+        'space-between',
+      ],
         sortIcon: false,
         dialog: false,
         editTaskTitle: '',
