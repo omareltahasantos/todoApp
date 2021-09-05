@@ -279,11 +279,14 @@
       }
     },
        created(){ //Esta funcion se llama directamente cuando carga la vista el servidor
-	
-
-		   this.tasks=  localStorage.getItem('task') //Obtenemos el array de tareas que haya guardado en el servidor
-
-		   this.tasks = JSON.parse(this.tasks) //Parseamos el array para que pase de ser un string a ser una array
+			if (localStorage.getItem('task') !== null) { //if exists array in browser
+				  this.tasks=  localStorage.getItem('task') //Obtenemos el array de tareas que haya guardado en el servidor
+		  		 this.tasks = JSON.parse(this.tasks) //Parseamos el array para que pase de ser un string a ser una array
+			}else{
+				localStorage.setItem('task,', JSON.stringify(this.tasks))
+			}
+		
+		 
 
 		   
 
