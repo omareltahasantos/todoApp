@@ -252,13 +252,6 @@
 
     data(){
       return{
-         justify: [
-        'start',
-        'center',
-        'end',
-        'space-around',
-        'space-between',
-      ],
         sortIcon: false,
         dialog: false,
         editTaskTitle: '',
@@ -279,23 +272,26 @@
           text: `Task added!`,
         tasks: [
           
-          {id: 1, title: 'Do the homework', done: false},
-          {id: 2, title: 'Study English', done: false},
-          {id: 3, title: 'Eat bananas', done: false},
 
         
         ],
         contador: 0
       }
     },
-       created(){
-        if(this.tasks === ''){
-          this.taskEmpty = 'There is no task'
-        }
+       created(){ //Esta funcion se llama directamente cuando carga la vista el servidor
+	
+
+		   this.tasks=  localStorage.getItem('task') //Obtenemos el array de tareas que haya guardado en el servidor
+
+		   this.tasks = JSON.parse(this.tasks) //Parseamos el array para que pase de ser un string a ser una array
+
+		   
+
+
       },
     methods: {
   
-      addTask(){
+      addTask(){ //añadimos tareas
 
         if(this.newTaskTitle !== ''){
           this.tasks.push({
@@ -303,6 +299,8 @@
           title: this.newTaskTitle,
           done: false,
         })
+		localStorage.setItem('task', JSON.stringify(this.tasks));
+
 
         this.snackbar = true
         }
@@ -310,13 +308,22 @@
         this.newTaskTitle = ''
       },
       doneTask(id){
+		  this.tasks = localStorage.getItem('task')
 
-        let task = this.tasks.filter(task =>task.id === id )[0]
-        task.done = !task.done
-        
+		  this.tasks = JSON.parse(this.tasks)
+
+		  for (let index = 0; index < this.tasks.length; index++) {
+			  	if (this.tasks[index].id ===  id) {
+					  this.tasks[index].done =  !this.tasks[index].done
+				  }
+			  
+		  }
+		  localStorage.setItem('task', JSON.stringify(this.tasks))
       },
       deleteTask(id){
+		  
         this.tasks  = this.tasks.filter(task => task.id !== id ) //Cambiar el contenido del array y ellimina el que tiene id === task.id
+		localStorage.setItem('task', JSON.stringify(this.tasks))
          this.snackbarDelete = true
         
           
@@ -337,6 +344,8 @@
 
             if(this.tasks[index].id === id){
                 this.tasks[index].title = this.editTaskTitle
+
+				localStorage.setItem('task', JSON.stringify(this.tasks))
                 return
             }
           
@@ -351,44 +360,35 @@
           this.snackbarDeleteAll = true
         }else{
           this.tasks = []
+		  localStorage.setItem('task', JSON.stringify(this.tasks))
         }
         
        
     },
 
-    deleteDoneTask(){
+   	 deleteDoneTask(){
 
 
-        let matchDone = 0
-        for (let index = 0; index < this.tasks.length; index++) {
-          
-            if (this.tasks[index].done === true) {
-              matchDone++
-            }
-        }
+			let matchDone = 0
+			for (let index = 0; index < this.tasks.length; index++) {
+			
+				if (this.tasks[index].done === true) {
+				matchDone++
+				}
+			}
 
-        if (matchDone === 0) {
-            this.snackbarDeleteByDone = true
-            this.textDeleteByDone = 'There is no task done!'
-        }
-        if(this.tasks.length === 0){
-          this.snackbarDeleteByDone = true
-          this.textDeleteByDone = 'There is no task!'
-        }else{
-             this.tasks = this.tasks.filter( task =>task.done !== true)
-        }
-        
-
-      
-
-        
-
-       
-
-
-    }
-
-    
+			if (matchDone === 0) {
+				this.snackbarDeleteByDone = true
+				this.textDeleteByDone = 'There is no task done!'
+			}
+			if(this.tasks.length === 0){
+			this.snackbarDeleteByDone = true
+			this.textDeleteByDone = 'There is no task!'
+			}else{
+				this.tasks = this.tasks.filter( task =>task.done !== true)
+				localStorage.setItem('task', JSON.stringify(this.tasks))
+			}
+		}
     },
   }
 </script>
